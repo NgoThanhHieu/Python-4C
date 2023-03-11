@@ -11,7 +11,6 @@
         .user {
             padding: 10px;
             margin: 5px;
-            background-color: #c0260764
         }
         .nav a {
             color: #fff;
@@ -31,33 +30,16 @@
     </style>
 </head>
 <body>
-    <h1>Calculator how to become President</h1>
-    <p>ONLY FOR +18</p>
-    <aside>
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">index</a>
-
-                </li>
-                <li>
-                    <a href="list">List of Presidents</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('druhá') }}">Formulář</a>
-                </li>
-                <li>
-                    <a href="first">???</a>
-                </li>
-            </ul>
-        </nav>
-        {% block stranka %}
-        {% endblock %}
-        <div id="footer">
-            © 2023 Milan
-        </div>
-
-    
-
+        <a href="/">Zpět</a>
+{% block stranka %}
+    <h1>List Of Presidenets</h1>
+    {% for user in users %}
+    <div class='user'>
+        <h2>Jméno: {{ user[1] }}</h2>
+        <p>Věk: {{ user[2] }}</p>
+    </div>
+    {% endfor %}
+    <p>Home page</p>
 </body>
 </html>
+{% endblock %}

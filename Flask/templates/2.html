@@ -6,18 +6,30 @@
     <p>{{ message['content'] }}</p>
 </div>
 {% endfor %}
-    <h1>Formulář</h1>
-    <form action="/form" method="POST">
-        <div class="form-group">
-            <label for="fname">First name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-        </div>
-        <div class="form-group">
-            <label for="age">Age : </label><br>
-            <input type="number" id="age" name="age"><br><br>
-            <input type="submit" value="Submit">
-        </div>
-      </form>
-      
-    <p>Prezident</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="main-block">
+        <h1>Formulář</h1>
+            <form action="/form" method="POST">
+                <hr>
+                <label id="icon"for="fname"><i class="fas fa-user"></i></label>
+                <input type="text" id="fname"  placeholder="Jméno" name="fname">
+                 <hr>
+                 <label id="icon" for="age"><i class="fas fa-user"></i></label>
+                 <input type="number" id="age" placeholder="Věk" name="age">
+                 <hr>
+                 <div class="btn-block">
+                    <button type="submit" value="Submit">Spočítat</button>
+                  </div>
+            </form>
+    </div>
+</body>
+</html>
 {% endblock %}  

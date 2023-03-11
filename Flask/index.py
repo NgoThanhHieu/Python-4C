@@ -1,10 +1,8 @@
-from flask import Flask,  render_template
-from flask import request
-
+from flask import Flask,  render_template, request,  redirect
+import sqlite3
+import DB
 app = Flask(__name__)
 
-messages = [{'title': 'Prezidentos',
-             'content': ' '},]
 president = 0
 age = 0 
 
@@ -12,19 +10,27 @@ age = 0
 def index():
     return render_template('index.html')
 
-@app.route('/uvod')
+@app.route('/list')
 def uvod():
-    return render_template('uvod.html')
+    con = DB.open_db()
+    #con.execute("DELETE from users WHERE id = 5 ")
+    #con.execute("INSERT INTO users (name, age) VALUES (?, ?)", ('Miguel', 10))
+    users = con.execute("SELECT * FROM users").fetchall()
+    con.commit()
+    con.close()
+    return render_template('list.html' , users=users)
+   
 
 @app.route('/first/<int:id>/<username>')
 def první(id,username):
     return render_template('1.html', id=id , username=username)
 
-@app.route('/second')
+@app.route('/calculator')
 def druhá():
-        return render_template('2.html', messages=messages)
+        return render_template('2.html')
 
-@app.route('/form',  methods=["POST"])
+
+@app.route('/form',  methods=('GET', 'POST'))
 def třetí( age=None, fname=None, president=None):
     if request.method == "POST":
         fname = request.form.get("fname")
@@ -35,14 +41,14 @@ def třetí( age=None, fname=None, president=None):
         president = 40 - age
         president = president + 2023
         title = "Mužeš být prezidentem až v roce " + str(president)
+    if request.method == "POST":
+        con = DB.open_db()
+        con.execute("INSERT INTO users (name, age) VALUES (?, ?)", (fname, age))
+        con.commit()
+        con.close()
     return render_template('form.html',title=title, age=age, fname=fname, president=president)
-
-@app.route('/fourth')
-def čtvrtá():
-    return render_template('4.html')
-@app.route('/fifth')
-def patá():
-    return render_template('5.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
+
